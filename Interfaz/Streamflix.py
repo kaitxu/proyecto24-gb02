@@ -742,6 +742,8 @@ async def lista_usuarios(request: Request):
         },
     )
 
+TEMPLATE_CREAR_PELICULA_HTML = "admin_crear_pelicula.html"
+
 @app.get("/administrador/pelicula/crear", response_class=HTMLResponse)
 async def crear_pelicula_form(request: Request):
     """
@@ -765,7 +767,7 @@ async def crear_pelicula_form(request: Request):
     actores = actores_response.json() if actores_response.status_code == 200 else []    
 
     return templates.TemplateResponse(
-    "admin_crear_pelicula.html",  # Nombre de la plantilla
+    TEMPLATE_CREAR_PELICULA_HTML,  # Nombre de la plantilla
     {
         "request": request,
         "generos": generos,
@@ -811,7 +813,7 @@ async def crear_pelicula(
 
             if response.status_code != 200:
                 return templates.TemplateResponse(
-                    "admin_crear_pelicula.html",
+                    TEMPLATE_CREAR_PELICULA_HTML,
                     {
                         "request": request,
                         "error_message": f"Error al añadir el actor al reparto. Por favor, inténtelo de nuevo.",
@@ -825,7 +827,7 @@ async def crear_pelicula(
         return redirect_response
     else:
         return templates.TemplateResponse(
-            "admin_crear_pelicula.html",
+            TEMPLATE_CREAR_PELICULA_HTML,
             {
                 "request": request,
                 "error_message": "Error al crear la película. Por favor, inténtelo de nuevo.",
