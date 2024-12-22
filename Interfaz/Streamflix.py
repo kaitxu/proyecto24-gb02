@@ -267,7 +267,7 @@ async def detalles_contenido(request: Request, idContenido: str, user_id: str):
     detalles_doblajes = doblajes.json()
          
     # Obtener el historial
-    estaEnHistorial = False
+    esta_en_historial = False
     historial_response = requests.get(f"{BASE_URL_INTERACCIONES}/usuarios/{user_id}/historial")
 
     # Validar que la respuesta sea válida
@@ -275,13 +275,13 @@ async def detalles_contenido(request: Request, idContenido: str, user_id: str):
         historial = historial_response.json()
         if isinstance(historial, list) and len(historial) > 0:  # Verificar si es una lista no vacía
             if any(content["id"] == idContenido for content in historial):
-                estaEnHistorial = True
+                esta_en_historial = True
     else:
         #print(f"No se ha obtenido el historial: {historial_response.status_code}")
         historial = []
 
     # Si no está en el historial, agregarlo
-    if not estaEnHistorial:
+    if not esta_en_historial:
         try:
             response = requests.post(f"{BASE_URL_INTERACCIONES}/usuarios/{user_id}/historial/{idContenido}")
             if response.status_code == 200:
