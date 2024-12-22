@@ -197,9 +197,9 @@ async def registrar_usuario(
 
 # Endpoint para mostrar los detalles de un contenido
 @app.get("/detalles_contenido/{idContenido}", response_class=HTMLResponse)
-async def detalles_contenido(request: Request, idContenido: str, user_id: str):
+async def detalles_contenido(request: Request, id_contenido: str, user_id: str):
     # Solicita los detalles del contenido al microservicio de contenidos
-    contenido = requests.get(f"{BASE_URL_CONTENIDOS}/contenidos/{idContenido}")
+    contenido = requests.get(f"{BASE_URL_CONTENIDOS}/contenidos/{id_contenido}")
 
     if contenido.status_code != 200:
         raise HTTPException(
@@ -274,7 +274,7 @@ async def detalles_contenido(request: Request, idContenido: str, user_id: str):
     if historial_response.status_code == 200:
         historial = historial_response.json()
         if isinstance(historial, list) and len(historial) > 0:  # Verificar si es una lista no vacía
-            if any(content["id"] == idContenido for content in historial):
+            if any(content["id"] == id_contenido for content in historial):
                 estaEnHistorial = True
     else:
         #print(f"No se ha obtenido el historial: {historial_response.status_code}")
@@ -283,9 +283,9 @@ async def detalles_contenido(request: Request, idContenido: str, user_id: str):
     # Si no está en el historial, agregarlo
     if not estaEnHistorial:
         try:
-            response = requests.post(f"{BASE_URL_INTERACCIONES}/usuarios/{user_id}/historial/{idContenido}")
+            response = requests.post(f"{BASE_URL_INTERACCIONES}/usuarios/{user_id}/historial/{id_contenido}")
             if response.status_code == 200:
-                print(f"Contenido {idContenido} agregado al historial.")
+                print(f"Contenido {id_contenido} agregado al historial.")
             else:
                 print(f"Error al agregar contenido al historial: {response.status_code}")
         except Exception as e:
