@@ -467,17 +467,17 @@ async def eliminar_interaccion(request: Request):
     datos = await request.json()
 
     # Extraer idUsuario e idContenido
-    idUsuario = datos.get("idUsuario")
+    id_usuario = datos.get("idUsuario")
     idContenido = datos.get("idContenido")
 
     # Validar que los datos requeridos estén presentes
-    if not idUsuario or not idContenido:
+    if not id_usuario or not idContenido:
         raise HTTPException(
             status_code=400, detail="Faltan datos obligatorios: idUsuario o idContenido"
         )
 
     # Construir la URL de la API de interacciones
-    url = f"{BASE_URL_INTERACCIONES}/usuarios/{idUsuario}/me-gusta/{idContenido}"
+    url = f"{BASE_URL_INTERACCIONES}/usuarios/{id_usuario}/me-gusta/{idContenido}"
 
     # Realizar la petición DELETE a la API de interacciones
     try:
