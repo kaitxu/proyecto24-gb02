@@ -650,10 +650,10 @@ async def add_payment_method(user_id: str, request: Request):
 
         # Preparar los datos según el tipo de método de pago
         if payment_method == "credit_card":
-            numeroTarjeta = form_data.get("numeroTarjeta")
+            numero_tarjeta = form_data.get("numeroTarjeta")
             data = {
                 "tipo": "Tarjeta de Crédito",
-                "numeroTarjeta": numeroTarjeta,
+                "numeroTarjeta": numero_tarjeta,
                 "emailPaypal": None,  # No se utiliza para tarjeta de crédito
             }
         elif payment_method == "paypal":
