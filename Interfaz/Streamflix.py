@@ -834,6 +834,7 @@ async def crear_pelicula(
             }
         )
 
+TEMPLATE_CREAR_SERIE_HTML = "admin_crear_serie.html"
 
 @app.get("/administrador/serie/crear", response_class=HTMLResponse)
 async def crear_serie_form(request: Request):
@@ -852,7 +853,7 @@ async def crear_serie_form(request: Request):
     actores = actores_response.json() if actores_response.status_code == 200 else []      
 
     return templates.TemplateResponse(
-        "admin_crear_serie.html",
+        TEMPLATE_CREAR_SERIE_HTML,
         {
             "request": request,
             "generos": generos,
@@ -895,7 +896,7 @@ async def crear_serie(
 
             if response.status_code != 200:
                 return templates.TemplateResponse(
-                    "admin_crear_serie.html",
+                    TEMPLATE_CREAR_SERIE_HTML,
                     {
                         "request": request,
                         "error_message": f"Error al añadir el actor al reparto. Por favor, inténtelo de nuevo.",
@@ -915,7 +916,7 @@ async def crear_serie(
         return redirect_response
     else:
         return templates.TemplateResponse(
-            "admin_crear_serie.html",
+            TEMPLATE_CREAR_SERIE_HTML,
             {
                 "request": request,
                 "error_message": "Error al crear la serie. Por favor, inténtelo de nuevo.",
