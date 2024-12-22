@@ -646,7 +646,6 @@ async def add_payment_method(user_id: str, request: Request):
         # Obtener los datos del formulario
         form_data = await request.form()
         payment_method = form_data.get("payment-method")
-        payment_details = form_data.get("payment-details")
 
         # Preparar los datos según el tipo de método de pago
         if payment_method == "credit_card":
